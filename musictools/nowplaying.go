@@ -22,9 +22,10 @@ type recentlyPlayedResponse struct {
 }
 
 type Song struct {
-	Name   string
-	Artist string
-	URL    string
+	Name         string
+	Artist       string
+	URL          string
+	RadioStation string
 }
 
 func getRecentlyPlayedJson(user, api_key string) []byte {
@@ -58,8 +59,9 @@ func GetNowPlaying(user, api_key string) Song {
 	nowPlaying := parsedRecentlyPlayed.Recenttracks.Track[0]
 
 	return Song{
-		Name:   nowPlaying.Name,
-		Artist: nowPlaying.Artist.Text,
-		URL:    nowPlaying.URL}
+		Name:         nowPlaying.Name,
+		Artist:       nowPlaying.Artist.Text,
+		URL:          nowPlaying.URL,
+		RadioStation: user}
 
 }

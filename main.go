@@ -1,17 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/robhorbury/radio_project/musictools"
 )
 
 func main() {
+	counter := 0
+	musictools.InitDatabase()
 	api_key := loadApiKey()
-	currentSong := musictools.GetNowPlaying("bbc6music", api_key)
-	fmt.Println(currentSong)
+	for counter < 15 {
+		currentSong := musictools.GetNowPlaying("bbc6music", api_key)
+		musictools.RecordSongPlayed(currentSong)
+		time.Sleep(60 * time.Second)
+		counter += 1
+	}
+
 }
 
 func loadApiKey() string {
